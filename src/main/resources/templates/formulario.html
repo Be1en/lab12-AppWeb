@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de envío</title>
+    <meta charset="UTF-8">
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h1>Solicitud de nueva Tarjeta BCP</h1>
+        </div>
+        <form th:action="@{/formularioRegistro}" th:object="${form}" method="POST">
+            <div class="form-group">
+                <label>Tipo de Documento:</label>
+                <div class="form-check">
+                    <input type="radio" th:field="*{documento}" class="form-check-input" id="dni" value="DNI" checked="checked"/>
+                    <label class="form-check-label" for="dni">DNI</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" th:field="*{documento}" class="form-check-input" id="carnetExtranjeria" value="Carnet de Extranjeria"/>
+                    <label class="form-check-label" for="carnetExtranjeria">Carnet de Extranjeria</label>
+                </div>
+                <p th:errors="*{documento}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput">Número de Documento:</label>
+                <input type="text" th:field="*{nro_documento}" class="form-control" id="formGroupExampleInput" placeholder="Ingrese su número de documento"/>
+            	<p th:errors="*{nro_documento}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput">Apellido Paterno:</label>
+                <input type="text" th:field="*{apellido_paterno}" class="form-control" id="formGroupExampleInput" placeholder="Ingrese su apellido paterno"/>
+            	<p th:errors="*{apellido_paterno}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput">Apellido Materno:</label>
+                <input type="text" th:field="*{apellido_materno}" class="form-control" id="formGroupExampleInput" placeholder="Ingrese su apellido materno"/>
+            	<p th:errors="*{apellido_materno}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput">Nombres:</label>
+                <input type="text" th:field="*{nombres}" class="form-control" id="formGroupExampleInput" placeholder="Ingrese sus nombres"/>
+            	<p th:errors="*{nombres}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <label>Sexo:</label>
+                <div class="form-check">
+                    <input type="radio" th:field="*{sexo}" class="form-check-input" id="sexoM" value="Masculino"/>
+                    <label class="form-check-label" for="sexoM">Masculino</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" th:field="*{sexo}" class="form-check-input" id="sexoF" value="Femenino"/>
+                    <label class="form-check-label" for="sexoF">Femenino</label>
+                </div>
+                <p th:errors="*{sexo}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput">Fecha de Nacimiento:</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="number" th:field="*{dia}" class="form-control" placeholder="Día"/>
+                    </div>
+                    <div class="col-md-4">
+                        <select th:field="*{mes}" class="form-control">
+                            <option th:each="elemento: ${T(com.miempresa.DTO.OpcionesMes).values()}"
+                                    th:value="${elemento}" th:text="${elemento}" />
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" th:field="*{anio}" class="form-control" placeholder="Año"/>
+                    </div>
+                </div>
+                <p th:errors="*{dia}" class="text-danger">.text-danger</p>
+                <p th:errors="*{mes}" class="text-danger">.text-danger</p>
+                <p th:errors="*{anio}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Estado Civil:</label>
+                <select th:field="*{est_civil}" class="form-control" id="exampleFormControlSelect2">
+                    <option th:each="elemento: ${T(com.miempresa.DTO.OpcionesCivil).values()}"
+                            th:value="${elemento}" th:text="${elemento}" />
+                </select>
+                <p th:errors="*{est_civil}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Situación Laboral:</label>
+                <select th:field="*{sit_laboral}" class="form-control" id="exampleFormControlSelect2">
+                    <option th:each="elemento: ${T(com.miempresa.DTO.OpcionesLaboral).values()}"
+                            th:value="${elemento}" th:text="${elemento}" />
+                </select>
+                <p th:errors="*{sit_laboral}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput">RUC:</label>
+                <input type="number" th:field="*{ruc}" class="form-control" id="formGroupExampleInput" placeholder="Ingrese el RUC"/>
+            	<p th:errors="*{ruc}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" th:field="*{terminos}" class="form-check-input" id="terminosCheck" value="true"/>
+                <label class="form-check-label" for="terminosCheck">Acepto los términos y condiciones</label>
+            	<p th:errors="*{terminos}" class="text-danger">.text-danger</p>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <a href="/" class="btn btn-primary">Volver a Index</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
